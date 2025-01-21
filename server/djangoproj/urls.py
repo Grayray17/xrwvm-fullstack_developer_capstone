@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+#from django.urls import import views
+
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
@@ -24,5 +27,7 @@ urlpatterns = [
     path('djangoapp/', include('djangoapp.urls')),
     path('about/', TemplateView.as_view(template_name="About.html")),
     path('contact/', TemplateView.as_view(template_name="Contact.html")),
-    path('', TemplateView.as_view(template_name="Home.html")),
+    path('login/', TemplateView.as_view(template_name="login.html")),
+    path('', TemplateView.as_view(template_name="Home.html"), name='home')
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
