@@ -1,33 +1,42 @@
-"""djangoproj URL Configuration
+"""
+djangoproj URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
+
 Examples:
-Function views
+Function views:
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
+
+Class-based views:
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
+
+Including another URLconf:
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
-#from django.urls import import views
 
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from djangoapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('djangoapp/', include('djangoapp.urls')),
-    path('about/', TemplateView.as_view(template_name="About.html")),
-    path('contact/', TemplateView.as_view(template_name="Contact.html")),
-    path('login/', TemplateView.as_view(template_name="login.html")),
-    path('', TemplateView.as_view(template_name="Home.html"), name='home')
+    path("admin/", admin.site.urls),
+    path("djangoapp/", include("djangoapp.urls")),
+    path("about/", TemplateView.as_view(template_name="About.html")),
+    path("contact/", TemplateView.as_view(template_name="Contact.html")),
+    path("login/", TemplateView.as_view(template_name="login.html")),
+    path("", TemplateView.as_view(template_name="Home.html"), name="home"),
+    path("dealers/", TemplateView.as_view(template_name="index.html")),
+    
+    # URL for getting all dealers
+    # path("dealers/", views.get_all_dealers, name="get_all_dealers"),
 
+    # URL for getting reviews for a specific dealer
+    # path("dealers/<int:dealer_id>/", views.get_dealer_reviews, name="get_dealer_reviews"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
