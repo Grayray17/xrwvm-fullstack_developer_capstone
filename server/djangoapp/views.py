@@ -161,3 +161,23 @@ def dealer_list(request):
     response = get_dealerships(request)
     data = json.loads(response.content)
     return render(request, "dealers.html", {"dealers": data["dealerships"]})
+
+def get_dealerships(request):
+    """
+    Retrieves all dealers from the database and returns them as JSON.
+    """
+    try:
+        dealers = Dealer.objects.all().values()  # Fetch all dealers
+        return JsonResponse({"status": 200, "dealers": list(dealers)})
+    except Exception as e:
+        return JsonResponse({"status": 500, "error": str(e)})
+
+def get_dealerships_by_state(request, state):
+    """
+    Retrieves dealers filtered by state.
+    """
+    try:
+        dealers = Dealer.objects.filter(state=state).values()
+        return JsonResponse({"status": 200, "dealers": list(dealers)})
+    except Exception as e:
+        return JsonResponse({"status": 500, "error": str(e)})

@@ -5,6 +5,10 @@ import PostReview from "./components/Dealers/PostReview";
 import Dealers from './components/Dealers/Dealers';
 
 function App() {
+  // Retrieve the backend URL from the environment variables
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  console.log("Backend URL:", backendUrl); // For debugging purposes
+
   return (
     <Routes>
       {/* Login route */}
@@ -16,10 +20,10 @@ function App() {
       {/* Default route (optional, redirect to login or another page) */}
       <Route path="*" element={<LoginPanel />} />
 
-      <Route path="/postreview/:id" element={<PostReview/>} />
+      <Route path="/postreview/:id" element={<PostReview />} />
 
-      <Route path="/dealers" element={<Dealers/>} />
-
+      {/* Dealers route - optionally pass the backend URL as a prop */}
+      <Route path="/dealers" element={<Dealers backendUrl={backendUrl} />} />
     </Routes>
   );
 }
